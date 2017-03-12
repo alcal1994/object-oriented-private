@@ -18,7 +18,7 @@ public class Person {
     /**Set variables
      * 
      */
-    private String firstName, lastName, streetAddress, city, province, postalCode;
+    String firstName, lastName, streetAddress, city, province, postalCode;
     private LocalDate birthDate;
     private int age;
     
@@ -26,7 +26,7 @@ public class Person {
      * 
      * @param firstName
      * @param lastName
-     * @param address
+     * @param streetAddress
      * @param city
      * @param province
      * @param postalCode
@@ -160,7 +160,7 @@ public class Person {
         this.streetAddress = address;
         this.city = city;
         this.province = province;
-        this.postalCode = postalCode;
+        this.postalCode = postalCode.toUpperCase();
     }
     
     
