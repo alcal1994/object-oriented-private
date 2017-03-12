@@ -23,7 +23,18 @@ public class Course {
     private DayOfWeek courseDay;
     private ArrayList<Student> studentsRegistered = new ArrayList<>();
     private Instructor instructor;
-    
+    /**
+     * constructor for course class
+     * @param courseCode
+     * @param courseName
+     * @param description
+     * @param roomLocation
+     * @param instructor
+     * @param courseDay
+     * @param startTime
+     * @param duration
+     * @param maxStudents 
+     */
     public Course(String courseCode, String courseName, String description, String roomLocation, Instructor instructor, DayOfWeek courseDay, LocalTime startTime, int duration, int maxStudents){
             
        
@@ -46,7 +57,10 @@ public class Course {
         
         
      }
-
+/**
+ * accepts student object, and adds student
+ * @param studentObject 
+ */
 public void addStudent(Student studentObject){
     
     if(studentObject.inGoodStanding() && getNumberOfStudentsEnrolled() <= getMaxNumberOfStudents()){
@@ -56,12 +70,18 @@ public void addStudent(Student studentObject){
     }
  
 }
-
+/**
+ * returns double of average student time at college method
+ * @return 
+ */
 public double averageStudentTimeAtCollege(){
  averageStudentTimeAtCollege = duration * numberOfStudentsEnrolled / numberOfStudentsEnrolled;
  return averageStudentTimeAtCollege;
 }
-
+/**
+ * getters and setters
+ * @return 
+ */
 public String getCourseCode(){
     return courseCode;
 }
@@ -72,7 +92,10 @@ public void setCourseName(String courseName){
 public String getCourseName(){
     return courseName;
 }
-
+/**
+ * method to validate days of the week and set courseDay
+ * @param dayOfWeek 
+ */
 public void setDayOfClass(DayOfWeek dayOfWeek){
     /* The Value of days of week are Monday = 1 and Sunday = 7 */
     if(dayOfWeek.getValue() >= 1 && dayOfWeek.getValue() <= 5){
@@ -120,7 +143,10 @@ public ArrayList<Student> getStudents() {
 public void setDayOfClass(){
     
 }
-
+/**
+ * validates max number of students is between 10 and 50 and sets maxStudents variable
+ * @param maxStudents 
+ */
 public void setMaxNumberOfStudents(int maxStudents){
    if (maxStudents>= 10 && maxStudents<= 50){
        this.maxStudents = maxStudents; 
@@ -128,7 +154,10 @@ public void setMaxNumberOfStudents(int maxStudents){
        throw new IllegalArgumentException("Number of students must be between 10 and 50");
    }
 }
-
+/**
+ * sets prof to true if instructor courses equal teachable courses
+ * @param instructor 
+ */
 public void setProf(Instructor instructor){
     boolean isTeachable = false;
     
@@ -156,7 +185,10 @@ public Instructor getProf(){
     return instructor;
 }
         
-        
+ /**
+  * method to validate start time
+  * @param startTime 
+  */       
 public void setStartTime(LocalTime startTime){
     if(startTime.getHour() >= 8 && startTime.getHour()<=18){
     this.startTime = startTime;
@@ -165,7 +197,10 @@ public void setStartTime(LocalTime startTime){
     }
     
 }
-
+/**
+ * method to return string of class list
+ * @return 
+ */
 public String showClassList(){
     String classList = "" ; 
      for(int i = 0; i<= numberOfStudentsEnrolled; i++){
@@ -176,6 +211,10 @@ public String showClassList(){
      return classList;
      
 }
+/**
+ * method to return string with courseName and courseCode
+ * @return 
+ */
 public String toString(){
     toString = getCourseName() + " " + getCourseCode();
   return toString;
