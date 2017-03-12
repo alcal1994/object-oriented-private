@@ -19,7 +19,7 @@ public class Instructor extends Person {
      */
     private String listOfSubjectsCertifiedToTeach, courseCode;
     private int employeeNumber, yearsAtCollege, howOld, hire;
-    private LocalDate hireDate, birthday;
+    private LocalDate hireDate;
     private ArrayList<String> course = new ArrayList<>();
 /**
  * constructor Instructor
@@ -36,10 +36,10 @@ public class Instructor extends Person {
     public Instructor(String firstName, String lastName, String streetAddress, String city, String province, String postalCode, LocalDate dob, int employeeNum, LocalDate hireDate){
         super(firstName, lastName, streetAddress, city, province, postalCode, dob);
         
-        setBirthday(birthday);
-        this.employeeNumber = employeeNumber;
+        setBirthday(dob);
         setHireDate(hireDate);
-        
+        setYearsAtCollege();
+        setEmployeeNumber(employeeNum);
         
         
          }  
@@ -76,12 +76,24 @@ public class Instructor extends Person {
         return isTrue;
      }//end of method
      
+    public int setYearsAtCollege(){
+        double tempYear;
+       tempYear = LocalDate.now().getYear() - hireDate.getYear();
+       tempYear = Math.floor(tempYear);
+       Double d = tempYear;
+       yearsAtCollege = d.intValue();
+       
+        return yearsAtCollege;
+    }
+    
     public int getYearsAtCollege(){
+        
+        
          return yearsAtCollege;
      }
     
     public LocalDate getBirthday(){
-        return birthday;
+        return super.getBirthdate();
     }
     public LocalDate getHireDate(){
         return hireDate;
@@ -91,7 +103,13 @@ public class Instructor extends Person {
     }
      
     public String listOfSubjectsCertifiedToTeach(){
-     
+        listOfSubjectsCertifiedToTeach = "";
+            for(int i=0; i<course.size(); i++){
+                listOfSubjectsCertifiedToTeach += course.get(i);
+                if(i != course.size()-1){
+                    listOfSubjectsCertifiedToTeach += ", ";
+                }
+            }
         
         return listOfSubjectsCertifiedToTeach;
       }
@@ -99,8 +117,13 @@ public class Instructor extends Person {
     public void addCourseToAbilities(){
         
     }
-    public void setEmployeeNumber(){
+    public void setEmployeeNumber(int employeeNumber){
+        
+        if(employeeNumber>0){
        this.employeeNumber = employeeNumber;
+        }else{
+            throw new IllegalArgumentException("The employee number must be above Zero");
+        }
     }
     /**
      * method setBirthday to validate age is between 18, and 100 years old
@@ -110,8 +133,8 @@ public class Instructor extends Person {
        LocalDate today = LocalDate.now();
        howOld = Period.between(birthday,today).getYears();
        
-       if(howOld<=100 && howOld<=18){
-         this.birthday = birthday;  
+       if(howOld<=100 && howOld>=18){
+         super.setBirthDate(birthday);
        }else{
            throw new IllegalArgumentException("Age must be between 18-100 years old.");
        } 
@@ -150,8 +173,13 @@ public class Instructor extends Person {
       * @return 
       */
     public ArrayList<String> getTeachableCourses() {
+        ArrayList<String> coors = new ArrayList <>();
         
-      return course;
+        for(int i = 0; i<course.size(); i++){
+           coors.add(course.get(i).toUpperCase());
+        }
+        
+      return coors;
       
       
     }
