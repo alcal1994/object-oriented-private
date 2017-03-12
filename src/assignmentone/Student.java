@@ -17,9 +17,9 @@ public class Student extends Person{
     /**
      * Instantiate variables
      */
-    private int yearEnrolled, yearsAtCollege, studentNumber,howOld;
-    private String reinstateStudent, suspendStudent, major;
-    private LocalDate birthday;
+    private int yearEnrolled, yearsAtCollege, studentNumber;
+    private String major, toString;
+    
     private boolean inGoodStanding;
     
     /**
@@ -39,9 +39,11 @@ public class Student extends Person{
         
     
     this.major = major;
-    setBirthday(birthday);
     setStudentNumber(studentNumber);
     this.yearEnrolled = yearEnrolled.getYear();
+    this.inGoodStanding = true;
+    setBirthday(dob);
+    
     }
     
     public int getYearEnrolled(){
@@ -51,7 +53,7 @@ public class Student extends Person{
     public int getYearsAtCollege(){
         double tempYear;
        tempYear = LocalDate.now().getYear() - yearEnrolled;
-       tempYear = Math.floor(yearEnrolled);
+       tempYear = Math.floor(tempYear);
        Double d = new Double(tempYear);
        yearsAtCollege = d.intValue();
        
@@ -65,7 +67,7 @@ public class Student extends Person{
     }
     
     public LocalDate getBirthday(){
-        return birthday;
+        return super.getBirthdate();
     }
     
     public String getMajor(){
@@ -73,23 +75,27 @@ public class Student extends Person{
     }
     
     public void setBirthday(LocalDate birthday){
-       LocalDate today = LocalDate.now();
-       howOld = Period.between(birthday,today).getYears();
-       
-       if(howOld<=90 && howOld<=14){
-         this.birthday = birthday;  
+        
+       if(Period.between(birthday, LocalDate.now()).getYears() > 14 && Period.between(birthday,LocalDate.now()).getYears() < 90){
+         super.setBirthDate(birthday);
        }else{
            throw new IllegalArgumentException("Age must be between 14-90 years");
        } 
     }
-    
+  
      public void setStudentNumber(int studentNumber){
+         
+    
      
-     if(studentNumber <= 0){
+     if(studentNumber > 0){
          this.studentNumber = studentNumber;
      } else {
             throw new IllegalArgumentException("Numbers entered must be greater than 0");
        }
+     }
+     
+     public int getStudentNumber(){
+         return studentNumber;
      }
      
      public void setMajor(){
@@ -105,11 +111,10 @@ public class Student extends Person{
          inGoodStanding = false;
      }
      
-     public void toString(String firstName,String lastName){
+     public String toString(){
          
-         this.firstName = firstName; 
-         this.lastName = lastName;
-         this.studentNumber = studentNumber;
+         toString = getFirstName() + " " + getLastName() + ", student number is " + getStudentNumber() ;
+         return toString;
          
      }
 }
