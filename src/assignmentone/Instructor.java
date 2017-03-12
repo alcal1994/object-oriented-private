@@ -101,7 +101,10 @@ public class Instructor extends Person {
     public int getEmployeeNum(){
         return employeeNumber;
     }
-     
+     /**
+      * method that returns listOfSubjectsCertifiedToTeach
+      * @return 
+      */
     public String listOfSubjectsCertifiedToTeach(){
         listOfSubjectsCertifiedToTeach = "";
             for(int i=0; i<course.size(); i++){
